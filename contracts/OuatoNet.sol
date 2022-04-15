@@ -1,13 +1,11 @@
 //SPDX-License-Identifier: Unlicense
-pragma solidity ^0.8.0;
+pragma solidity 0.8.13;
 
 import "@openzeppelin/contracts/access/AccessControl.sol";
 import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 import "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol";
 import "@uniswap/v2-periphery/contracts/interfaces/IUniswapV2Router02.sol";
 import "@uniswap/v2-core/contracts/interfaces/IUniswapV2Factory.sol";
-
-import "hardhat/console.sol";
 
 contract OuatoNet is Initializable, Context, IERC20, IERC20Metadata, AccessControl {
 
@@ -36,8 +34,8 @@ contract OuatoNet is Initializable, Context, IERC20, IERC20Metadata, AccessContr
 
     uint256 private _totalSupply;
 
-    string private _name = "OUATO.net";
-    string private _symbol = "$OUATO";
+    string private constant _name = "OUATO.net";
+    string private constant _symbol = "$OUATO";
 
     uint256 public numTokensSellToAddToLiquidity = 1 * 10 ** 18;
 
@@ -53,6 +51,10 @@ contract OuatoNet is Initializable, Context, IERC20, IERC20Metadata, AccessContr
         address productionFeeWallet_,
         address platformFeeWallet_,
         address uniswapV2RouterAddress_) external initializer onlyRole(ADMIN_ROLE) {
+
+        require(liquidityWallet_ != address(0), "liquidityWallet can not be zero address");
+        require(productionFeeWallet_ != address(0), "productionFeeWallet can not be zero address");
+        require(platformFeeWallet_ != address(0), "platformFeeWallet can not be zero address");
 
         _mint(_msgSender(), 1_000_000_000 * 10 ** decimals());
         liquidityFeePercentage = liquidityFeePercentage_;
@@ -79,6 +81,10 @@ contract OuatoNet is Initializable, Context, IERC20, IERC20Metadata, AccessContr
     }
 
     function changeWallets(address liquidityWallet_, address productionFeeWallet_, address platformFeeWallet_) external onlyRole(ADMIN_ROLE) {
+        require(liquidityWallet_ != address(0), "liquidityWallet can not be zero address");
+        require(productionFeeWallet_ != address(0), "productionFeeWallet can not be zero address");
+        require(platformFeeWallet_ != address(0), "platformFeeWallet can not be zero address");
+
         liquidityWallet = liquidityWallet_;
         productionFeeWallet = productionFeeWallet_;
         platformFeeWallet = platformFeeWallet_;
@@ -403,7 +409,7 @@ contract OuatoNet is Initializable, Context, IERC20, IERC20Metadata, AccessContr
         }
     }
 
-    //to recieve ETH from uniswapV2Router when swaping
+    //to receive ETH from uniswapV2Router when swapping
     receive() external payable {}
 
 

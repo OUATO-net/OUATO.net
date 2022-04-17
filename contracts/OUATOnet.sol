@@ -7,7 +7,7 @@ import "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol";
 import "@uniswap/v2-periphery/contracts/interfaces/IUniswapV2Router02.sol";
 import "@uniswap/v2-core/contracts/interfaces/IUniswapV2Factory.sol";
 
-contract OuatoNet is Initializable, Context, IERC20, IERC20Metadata, AccessControl {
+contract OUATOnet is Initializable, Context, IERC20, IERC20Metadata, AccessControl {
 
     uint32 public liquidityFeePercentage;
     uint32 public productionFeePercentage;
@@ -141,9 +141,9 @@ contract OuatoNet is Initializable, Context, IERC20, IERC20Metadata, AccessContr
             uint256 productionFee = balanceOf(address(this)) * productionFeePercentage / totalFeePercentage;
             uint256 platformFee = balanceOf(address(this)) - (liquidityFee + productionFee);
 
-            uint256 liquidityOuatoNet = liquidityFee / 2;
-            swapTokensForEth(liquidityFee - liquidityOuatoNet, address(this));
-            addLiquidity(liquidityOuatoNet, address(this).balance);
+            uint256 liquidityOUATOnet = liquidityFee / 2;
+            swapTokensForEth(liquidityFee - liquidityOUATOnet, address(this));
+            addLiquidity(liquidityOUATOnet, address(this).balance);
 
             swapTokensForEth(productionFee, productionFeeWallet);
             swapTokensForEth(platformFee, platformFeeWallet);

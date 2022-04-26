@@ -1,6 +1,6 @@
 import { expect } from "chai";
 import { ethers } from "hardhat";
-import { IUniswapV2Router02, OuatoNet } from "../typechain";
+import { IUniswapV2Router02, OUATOnet } from "../typechain";
 
 const liquidityFeePercentage = 200;
 const productionFeePercentage = 600;
@@ -8,7 +8,7 @@ const platformFeePercentage = 200;
 const tokenName = "OUATO.net";
 const uniswapV2RouterAddress = "0x9Ac64Cc6e4415144C455BD8E4837Fea55603e5c3";
 
-async function getTotalFee(ouatoNet: OuatoNet): Promise<number> {
+async function getTotalFee(ouatoNet: OUATOnet): Promise<number> {
   const liquidityFeePercentage = await ouatoNet.liquidityFeePercentage();
   const productionFeePercentage = await ouatoNet.productionFeePercentage();
   const platformFeePercentage = await ouatoNet.platformFeePercentage();
@@ -24,12 +24,12 @@ async function getTotalFee(ouatoNet: OuatoNet): Promise<number> {
 }
 
 describe("OuatoNet", function () {
-  let ouatoNet: OuatoNet;
+  let ouatoNet: OUATOnet;
   let uniswapV2Router02: IUniswapV2Router02;
   before(async function () {
     const [owner, liquidityWallet, productionFeeWallet, platformFeeWallet] =
       await ethers.getSigners();
-    const OuatoNetFactory = await ethers.getContractFactory("OuatoNet");
+    const OuatoNetFactory = await ethers.getContractFactory("OUATOnet");
     ouatoNet = await OuatoNetFactory.connect(owner).deploy({
       gasLimit: 6500000,
     });

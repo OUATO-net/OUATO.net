@@ -5,7 +5,7 @@
 // Runtime Environment's members available in the global scope.
 import { ethers, network } from "hardhat";
 
-import { OuatoNet } from "../typechain";
+import { OUATOnet } from "../typechain";
 
 async function main() {
   // Hardhat always runs the compile task when running scripts with its command
@@ -27,8 +27,8 @@ async function main() {
     throw new Error("Unknown network");
   }
   // We get the contract to deploy
-  const OuatoNetFactory = await ethers.getContractFactory("OuatoNet");
-  const ouatoNet: OuatoNet = await OuatoNetFactory.deploy({
+  const OuatoNetFactory = await ethers.getContractFactory("OUATOnet");
+  const ouatoNet: OUATOnet = await OuatoNetFactory.deploy({
     gasLimit: 6500000,
   });
   await ouatoNet.deployed();

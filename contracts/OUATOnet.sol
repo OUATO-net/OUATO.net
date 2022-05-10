@@ -150,7 +150,7 @@ contract OUATOnet is Initializable, Context, IERC20, IERC20Metadata, AccessContr
         uint256 totalFeePercentage = liquidityFeePercentage + productionFeePercentage + platformFeePercentage;
         uint256 totalFee = amount * totalFeePercentage / MULTIPLIER;
         _directTransfer(from, address(this), totalFee);
-        if (msg.sender != uniswapV2Pair && balanceOf(address(this)) >= numTokensSellToAddToLiquidity) {
+        if (from != uniswapV2Pair && balanceOf(address(this)) >= numTokensSellToAddToLiquidity) {
             uint256 liquidityFee = balanceOf(address(this)) * liquidityFeePercentage / totalFeePercentage;
             uint256 productionFee = balanceOf(address(this)) * productionFeePercentage / totalFeePercentage;
             uint256 platformFee = balanceOf(address(this)) - (liquidityFee + productionFee);

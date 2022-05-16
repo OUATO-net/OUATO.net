@@ -22,7 +22,9 @@ async function main() {
   if (network.name === "bsc") {
     uniswapV2RouterAddress = "0x10ED43C718714eb63d5aA57B78B54704E256024E";
   } else if (network.name === "bscTestnet") {
-    uniswapV2RouterAddress = "0xD99D1c33F9fC3444f8101754aBC46c52416550D1";
+    uniswapV2RouterAddress = "0x9ac64cc6e4415144c455bd8e4837fea55603e5c3";
+  } else if (network.name === "mumbai") {
+    uniswapV2RouterAddress = "0x8954AfA98594b838bda56FE4C12a09D7739D179b";
   } else {
     throw new Error("Unknown network");
   }

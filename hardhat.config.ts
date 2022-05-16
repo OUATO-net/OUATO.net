@@ -29,32 +29,38 @@ const config: HardhatUserConfig = {
     hardhat: {
       gas: 8000000,
       forking: {
-        url: "https://data-seed-prebsc-1-s1.binance.org:8545",
-      },
+        url: "https://data-seed-prebsc-1-s1.binance.org:8545"
+      }
     },
     local: {
-      url: process.env.LOCAL_URL || "http://127.0.0.1:8545",
+      url: process.env.LOCAL_URL || "http://127.0.0.1:8545"
     },
     bsc: {
       url: "https://bsc-dataseed.binance.org",
       accounts:
-        process.env.PRIVATE_KEY !== undefined ? [process.env.PRIVATE_KEY] : [],
+        process.env.PRIVATE_KEY !== undefined ? [process.env.PRIVATE_KEY] : []
     },
     bscTestnet: {
       url: "https://data-seed-prebsc-1-s1.binance.org:8545",
       accounts:
-        process.env.PRIVATE_KEY !== undefined ? [process.env.PRIVATE_KEY] : [],
+        process.env.PRIVATE_KEY !== undefined ? [process.env.PRIVATE_KEY] : []
     },
+    mumbai: {
+      url: process.env.MUMBAI_URL || "",
+      accounts:
+        process.env.PRIVATE_KEY !== undefined ? [process.env.PRIVATE_KEY] : []
+    }
 
   },
   gasReporter: {
     enabled: process.env.REPORT_GAS !== undefined,
     currency: "USD",
-    coinmarketcap: process.env.COINMARKETCAP_API_KEY,
+    coinmarketcap: process.env.COINMARKETCAP_API_KEY
   },
   etherscan: {
     apiKey: "7H62U9RWQPN61VVHN7D7UUDYPU2B9HG3HF",
-  },
+    //apiKey: "ASHXNIMXDF13SS9A83CFHZN3ZGX7H6SJMA",
+  }
 };
 
 export default config;

@@ -51,7 +51,7 @@ contract OUATOnet is Initializable, Context, IERC20, IERC20Metadata, AccessContr
     string private constant _name = "OUATO.net";
     string private constant _symbol = "$OUATO";
 
-    uint256 public numTokensSellToAddToLiquidity = 1 * 10 ** 8;
+    uint256 public numTokensSellToAddToLiquidity = 1 * 10 ** 18;
 
     constructor() {
         _setupRole(DEFAULT_ADMIN_ROLE, _msgSender());
@@ -117,7 +117,7 @@ contract OUATOnet is Initializable, Context, IERC20, IERC20Metadata, AccessContr
         _approve(address(this), address(uniswapV2Router), tokenAmount);
 
         // make the swap
-        uniswapV2Router.swapExactTokensForETH(
+        uniswapV2Router.swapExactTokensForETHSupportingFeeOnTransferTokens(
             tokenAmount,
             0, // accept any amount of ETH
             path,
@@ -150,7 +150,7 @@ contract OUATOnet is Initializable, Context, IERC20, IERC20Metadata, AccessContr
         uint256 totalFeePercentage = liquidityFeePercentage + productionFeePercentage + platformFeePercentage;
         uint256 totalFee = amount * totalFeePercentage / MULTIPLIER;
         _directTransfer(from, address(this), totalFee);
-        if (msg.sender != uniswapV2Pair && balanceOf(address(this)) >= numTokensSellToAddToLiquidity) {
+        if (from != uniswapV2Pair && balanceOf(address(this)) >= numTokensSellToAddToLiquidity) {
             uint256 liquidityFee = balanceOf(address(this)) * liquidityFeePercentage / totalFeePercentage;
             uint256 productionFee = balanceOf(address(this)) * productionFeePercentage / totalFeePercentage;
             uint256 platformFee = balanceOf(address(this)) - (liquidityFee + productionFee);
@@ -203,7 +203,7 @@ contract OUATOnet is Initializable, Context, IERC20, IERC20Metadata, AccessContr
      * {IERC20-balanceOf} and {IERC20-transfer}.
      */
     function decimals() public view virtual override returns (uint8) {
-        return 8;
+        return 18;
     }
 
     /**
